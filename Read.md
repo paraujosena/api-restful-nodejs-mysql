@@ -1,0 +1,5 @@
+#PROJETO CRIADO COM NODE.JS E MYSQL;
+
+CRUD BÁSICO EM UMA TABELA DE FUNCIONÁRIO
+
+utilização do banco de dados MySql

@@ -1,0 +1,72 @@
+Tipos de Data e Hora no SQL Server
+
+Neste artigo vamos abordar o armazenamento de data e hora em bancos de dados Microsoft SQL Server. Existem seis tipos que permitem armazenar informações temporais (sobre data e/ou hora) no SQL Server. São eles:
+
+    DATE
+    TIME
+    SMALLDATETIME
+    DATETIME
+    DATETIME2
+    DATETIMEOFFSET
+
+A seguir temos listadas as características principais de cada um desses tipos.
+Tipo DATE
+
+    Armazena apenas a data de um evento
+    Não é adequado caso seja necessário armazenar também o horário de um evento
+    Formato padrão de armazenamento: AAAA-MM-DD
+    Permite armazenar datas com valores de 0001-01-01 a 9999-12-31
+    Ocupa 3 bytes de espaço, e é armazenado como um valor INT
+    O tipo DATE pode ser convertido para DATETIME, SMALLDATETIME, DATETIME2 ou ainda DATETIMEOFFSET; nesses casos, o valor de horário é ajustado para 00:00.
+    Datas no tipo DATE não podem ser convertidas para o tipo TIME.
+
+Tipo TIME
+
+    Usado para registrar o horário específico em que uma atividade ou transação ocorreu.
+    Dados no tipo TIME independem de data
+    Possui precisão de 100 ns, e seu valor padrão é 00:00:00.
+    Formato padrão: hh:mm:ss[.nnnnnnn], onde a parte fracionária (frações de segundo) é representada por nnnnnnn.
+    Faixa de valores: de 00:00:00.0000000 a 23:59:59.9999999
+    Ocupa 5 bytes de espaço e não é possível convertê-lo para tipo DATE.
+    Se convertido para outros tipos de data compostos, a parte da data assumirá o valor 1900-01-01
+
+Tipo SMALLDATETIME
+
+    Faixa de valores: 1900-01-01 a 2079-06-06
+    Ocupa 4 bytes de espaço de armazenamento
+    Esse tipo não é compatível com o padrão ANSI
+    Arredonda os segundos de acordo com o valor passado
+    Não trabalha com fuso horário e nem com horário de verão, assim como os tipos DATE e TIME.
+
+Tipo DATETIME
+
+    Este tipo também não segue o padrão SQL. Possui limitações relativas à acurácia de frações de segundo (precisão).
+    Faixa de valores: 1753-01-01 a 2999-12-31
+    Tamanho: ocupa 8 bytes de espaço
+    Não é recomendado por não ser compatível com padrão ANSI
+
+Tipo DATETIME2
+
+    Armazena data e hora com precisão de até 100 ns.
+    É uma boa escolha para cenários onde é necessário armazenar o valor de tempo até frações de segundo
+    Não apresenta os problemas de arredondamento de DATETIME
+    Faixa de valores: de 1753-01-01 até 2999-12-31, e hora de 00:00:00 a 23:59:59.9999999
+    Sua precisão é ajustável, e seu tamanho depende da precisão escolhida.
+    Limitação: não suporta fuso horário nem horário de verão.
+
+Tipo DATETIMEOFFSET
+
+    Este tipo possui alto nível de precisão, até 100 ns
+    Formato: AAAA-MM-DD hh:mm:ss.nnnnnnn+|-hh:mm, onde +|-hh:mm tem a haver com o offset (deslocamento de tempo)
+    O offset pode variar de +14 a -14 para o número de horas em que um horário específico pode ser deslocado
+    Faixa de valores: de 0001-01-01 até 2999-12-31 para datas, e de 00:00:00 até 23:59:59.9999999 para hora.
+    Tamanho ocupado: 10 bytes, fixo.
+
+Perguntas e Respostas
+
+    Quais são os tipos de dados usados para trabalhar com data e hora no SQL Server?
+    Os tipos de dados de data e hora no SQL Server são DATE, TIME, DATETIME, DATETIME2, SMALLDATETIME e DATETIMEOFFSET.
+    Qual tipo de dados suporta fuso horário no SQL Server?
+    O tipo que suporta fuso horário (e também horário de verão) é o DATETIMEOFFSET.
+    Preciso armazenar data e hora em um mesmo campo em uma tabela no SQL Server. Qual o tipo de dado mais adequado neste caso?
+    O melhor tipo de dado neste caso é o DATETIME2, que permite armazenar data e hora com precisão de até 100 nanossegundos, sem problemas de arredondamento de valores que existem no tipo DATETIME.
